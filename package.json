@@ -1,5 +1,5 @@
 {
-    "name": "@dfgpublicidade/node-log-modulo",
+    "name": "@dfgpublicidade/node-log-module",
     "version": "1.0.0",
     "license": "UNLICENSED",
     "main": "dist/index.js",
