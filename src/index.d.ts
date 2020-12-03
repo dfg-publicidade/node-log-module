@@ -2,7 +2,7 @@
 declare namespace Express {
     interface Request {
         id: string;
-        usuario: any;
-        sistema: any;
+        user: any;
+        system: any;
     }
 }

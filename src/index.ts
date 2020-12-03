@@ -21,17 +21,17 @@ class Log {
             log.method = req.method;
             log.ip = getIp(req).clientIp;
 
-            if (req.usuario) {
+            if (req.user) {
                 log.user = {
-                    id: req.usuario.id,
-                    nome: req.usuario.nome
+                    id: req.user.id,
+                    nome: req.user.name
                 };
             }
 
-            if (req.sistema) {
+            if (req.system) {
                 log.system = {
-                    id: req.sistema.id,
-                    nome: req.sistema.nome
+                    id: req.system.id,
+                    nome: req.system.name
                 };
             }
         }
