@@ -26,7 +26,7 @@ class Log {
             if (req.system) {
                 log.system = {
                     id: req.system.id,
-                    name: req.user[app.config.log.system.nameField]
+                    name: req.system[app.config.log.system.nameField]
                 };
             }
         }
