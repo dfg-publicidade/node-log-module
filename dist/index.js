@@ -20,13 +20,13 @@ class Log {
             if (req.user) {
                 log.user = {
                     id: req.user.id,
-                    nome: req.user.name
+                    name: req.user[app.config.log.user.nameField]
                 };
             }
             if (req.system) {
                 log.system = {
                     id: req.system.id,
-                    nome: req.system.name
+                    name: req.user[app.config.log.system.nameField]
                 };
             }
         }
