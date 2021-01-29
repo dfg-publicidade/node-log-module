@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ipware_1 = __importDefault(require("ipware"));
-const url_1 = __importDefault(require("url"));
 /* Module */
 class Log {
     static async emit(app, req, collectionName, obj) {
@@ -14,7 +13,7 @@ class Log {
         log.app = app.info;
         if (req) {
             log.request = req.id;
-            log.action = url_1.default.parse(req.url).pathname;
+            log.action = new URL(req.url, app.config.api.url).pathname;
             log.method = req.method;
             log.ip = getIp(req).clientIp;
             if (req.user) {
