@@ -2,7 +2,6 @@ import App from '@dfgpublicidade/node-app-module';
 import { Request } from 'express';
 import ipware from 'ipware';
 import { Collection } from 'mongodb';
-import url from 'url';
 
 /* Module */
 class Log {
@@ -17,7 +16,7 @@ class Log {
 
         if (req) {
             log.request = req.id;
-            log.action = url.parse(req.url).pathname;
+            log.action = new URL(req.url, app.config.api.url).pathname;
             log.method = req.method;
             log.ip = getIp(req).clientIp;
 
