@@ -12,8 +12,9 @@ class Log {
         const log = {};
         log.app = app.info;
         if (req) {
+            const url = req.protocol + '://' + req.get('host') + req.originalUrl;
             log.request = req.id;
-            log.action = new URL(req.url, app.config.api.url).pathname;
+            log.action = new URL(req.url, url).pathname;
             log.method = req.method;
             log.ip = getIp(req).clientIp;
             if (req.user) {
