@@ -12,7 +12,7 @@ class Log {
         const log = {};
         log.app = app.info;
         if (req) {
-            const url = req.protocol + '://' + req.headers.host + req.originalUrl;
+            const url = `${req.protocol}://${req.headers.host}${req.originalUrl}`;
             log.request = req.id;
             log.action = new URL(req.url, url).pathname;
             log.method = req.method;
