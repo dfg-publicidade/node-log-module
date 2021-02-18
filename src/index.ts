@@ -15,10 +15,8 @@ class Log {
         log.app = app.info;
 
         if (req) {
-            const url: string = `${req.protocol}://${req.headers.host}${req.originalUrl}`;
-
             log.request = req.id;
-            log.action = new URL(url).pathname;
+            log.action = req.url;
             log.method = req.method;
             log.ip = getIp(req).clientIp;
 
