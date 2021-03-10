@@ -6,42 +6,42 @@ import { Collection } from 'mongodb';
 /* Module */
 class Log {
     public static async emit(app: App, req: Request, collectionName: string, obj?: any): Promise<any> {
-        const collection: Collection = app.db.collection(collectionName);
-
-        const getIp: (req: Request) => any = ipware().get_ip;
-
-        const log: any = {};
-
-        log.app = app.info;
-
-        if (req) {
-            log.request = req.id;
-            log.action = req.url;
-            log.method = req.method;
-            log.ip = getIp(req).clientIp;
-
-            if (req.user) {
-                log.user = {
-                    id: req.user.id,
-                    name: req.user[app.config.log.user.nameField]
-                };
-            }
-
-            if (req.system) {
-                log.system = {
-                    id: req.system.id,
-                    name: req.system[app.config.log.system.nameField]
-                };
-            }
-        }
-
-        if (obj) {
-            log.content = this.removeInvalidKeys(obj);
-        }
-
-        log.time = new Date();
-
         try {
+            const collection: Collection = app.db.collection(collectionName);
+
+            const getIp: (req: Request) => any = ipware().get_ip;
+
+            const log: any = {};
+
+            log.app = app.info;
+
+            if (req) {
+                log.request = req.id;
+                log.action = req.url;
+                log.method = req.method;
+                log.ip = getIp(req).clientIp;
+
+                if (req.user) {
+                    log.user = {
+                        id: req.user.id,
+                        name: req.user[app.config.log.user.nameField]
+                    };
+                }
+
+                if (req.system) {
+                    log.system = {
+                        id: req.system.id,
+                        name: req.system[app.config.log.system.nameField]
+                    };
+                }
+            }
+
+            if (obj) {
+                log.content = this.removeInvalidKeys(obj);
+            }
+
+            log.time = new Date();
+
             await collection.insertOne(log);
         }
         catch (error) {

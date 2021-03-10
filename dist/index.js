@@ -7,33 +7,33 @@ const ipware_1 = __importDefault(require("ipware"));
 /* Module */
 class Log {
     static async emit(app, req, collectionName, obj) {
-        const collection = app.db.collection(collectionName);
-        const getIp = ipware_1.default().get_ip;
-        const log = {};
-        log.app = app.info;
-        if (req) {
-            log.request = req.id;
-            log.action = req.url;
-            log.method = req.method;
-            log.ip = getIp(req).clientIp;
-            if (req.user) {
-                log.user = {
-                    id: req.user.id,
-                    name: req.user[app.config.log.user.nameField]
-                };
-            }
-            if (req.system) {
-                log.system = {
-                    id: req.system.id,
-                    name: req.system[app.config.log.system.nameField]
-                };
-            }
-        }
-        if (obj) {
-            log.content = this.removeInvalidKeys(obj);
-        }
-        log.time = new Date();
         try {
+            const collection = app.db.collection(collectionName);
+            const getIp = ipware_1.default().get_ip;
+            const log = {};
+            log.app = app.info;
+            if (req) {
+                log.request = req.id;
+                log.action = req.url;
+                log.method = req.method;
+                log.ip = getIp(req).clientIp;
+                if (req.user) {
+                    log.user = {
+                        id: req.user.id,
+                        name: req.user[app.config.log.user.nameField]
+                    };
+                }
+                if (req.system) {
+                    log.system = {
+                        id: req.system.id,
+                        name: req.system[app.config.log.system.nameField]
+                    };
+                }
+            }
+            if (obj) {
+                log.content = this.removeInvalidKeys(obj);
+            }
+            log.time = new Date();
             await collection.insertOne(log);
         }
         catch (error) {
