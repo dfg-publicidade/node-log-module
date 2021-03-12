@@ -121,7 +121,7 @@ describe('index.ts', (): void => {
         });
     });
 
-    it('emit', async (): Promise<void> => {
+    it('1. emit', async (): Promise<void> => {
         const res: ChaiHttp.Response = await chai.request(exp).keepOpen().get('/');
 
         // eslint-disable-next-line no-magic-numbers
@@ -135,7 +135,7 @@ describe('index.ts', (): void => {
         await db.collection(collectionName).drop();
     });
 
-    it('emit', async (): Promise<void> => {
+    it('2. emit', async (): Promise<void> => {
         const res: ChaiHttp.Response = await chai.request(exp).keepOpen().get('/').set('anonimous', 'true');
 
         // eslint-disable-next-line no-magic-numbers
@@ -149,7 +149,7 @@ describe('index.ts', (): void => {
         await db.collection(collectionName).drop();
     });
 
-    it('emit', async (): Promise<void> => {
+    it('3. emit', async (): Promise<void> => {
         Log.emit(app, undefined, collectionName, {
             teste: 1
         });
@@ -162,7 +162,7 @@ describe('index.ts', (): void => {
         await db.collection(collectionName).drop();
     });
 
-    it('emit', async (): Promise<void> => {
+    it('4. emit', async (): Promise<void> => {
         Log.emit(app, undefined, collectionName);
 
         const log: any = await db.collection(collectionName).findOne({});
@@ -172,7 +172,7 @@ describe('index.ts', (): void => {
         await db.collection(collectionName).drop();
     });
 
-    it('emit', async (): Promise<void> => {
+    it('5. emit', async (): Promise<void> => {
         const client: MongoClient = await MongoClient.connect(process.env.MONGO_TEST_URL, {
             poolSize: 1,
             useNewUrlParser: true,
