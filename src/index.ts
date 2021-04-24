@@ -44,7 +44,7 @@ class Log {
 
             await collection.insertOne(log);
         }
-        catch (error) {
+        catch (error: any) {
             // eslint-disable-next-line no-console
             console.error(error);
         }

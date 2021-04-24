@@ -34,10 +34,10 @@ describe('index.ts', (): void => {
 
         exp.set('port', port);
 
-        httpServer = http.createServer(express);
+        httpServer = http.createServer(exp);
 
         if (!process.env.MONGO_TEST_URL) {
-            throw new Error('MONGO_TEST_URL must be set');
+            throw new Error('MONGO_TEST_URL must be set.');
         }
 
         client = await MongoClient.connect(process.env.MONGO_TEST_URL, {
@@ -108,7 +108,7 @@ describe('index.ts', (): void => {
 
             client.close();
         }
-        catch (error) {
+        catch (error: any) {
             //
         }
 
