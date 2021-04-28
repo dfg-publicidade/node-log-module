@@ -34,7 +34,7 @@ class Log {
             }
             let logData = `Logging into '${collectionName}'`;
             if (log.ip) {
-                logData += ` from ${log.user ? log.user.name + '@' : ''}${log.ip}`;
+                logData += ` from ${log.user ? '"' + log.user.name + '" ' : ''}(${log.ip})`;
             }
             if (log.method && log.action) {
                 logData += ` at ${log.method}:${log.action}`;
