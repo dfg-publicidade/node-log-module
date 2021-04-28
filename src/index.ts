@@ -39,7 +39,15 @@ class Log {
                 }
             }
 
-            debug(`Logging: ${collectionName} from ${req.user ? req.user[app.config.log.user.nameField] + '@' : ''}${getIp(req).clientIp} at ${req.url}:${req.method}`);
+            let logData: string = `Logging into '${collectionName}'`;
+            if (log.ip) {
+                logData += ` from ${log.user ? log.user.name + '@' : ''}${log.ip}`;
+            }
+            if (log.method && log.action) {
+                logData += ` at ${log.method}:${log.action}`;
+            }
+
+            debug(logData);
 
             if (obj) {
                 log.content = this.removeInvalidKeys(obj);

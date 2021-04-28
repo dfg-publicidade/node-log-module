@@ -56,7 +56,7 @@ describe('index.ts', (): void => {
             config: {
                 log: {
                     user: {
-                        nameField: 'id'
+                        nameField: 'name'
                     },
                     system: {
                         nameField: 'identificacao'
@@ -73,7 +73,8 @@ describe('index.ts', (): void => {
                     identificacao: 'sistema-teste'
                 };
                 req.user = {
-                    id: req.headers.id
+                    id: req.headers.id,
+                    name: 'test'
                 };
             }
 
