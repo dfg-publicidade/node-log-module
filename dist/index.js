@@ -3,8 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const debug_1 = __importDefault(require("debug"));
 const ipware_1 = __importDefault(require("ipware"));
 /* Module */
+const debug = debug_1.default('module:log');
 class Log {
     static async emit(app, req, collectionName, obj) {
         try {
@@ -30,6 +32,7 @@ class Log {
                     };
                 }
             }
+            debug(`Logging: ${collectionName} from ${req.user ? req.user[app.config.log.user.nameField] + '@' : ''}${getIp(req).clientIp} at ${req.url}:${req.method}`);
             if (obj) {
                 log.content = this.removeInvalidKeys(obj);
             }

@@ -1,9 +1,12 @@
 import App from '@dfgpublicidade/node-app-module';
+import appDebugger from 'debug';
 import { Request } from 'express';
 import ipware from 'ipware';
 import { Collection } from 'mongodb';
 
 /* Module */
+const debug: appDebugger.IDebugger = appDebugger('module:log');
+
 class Log {
     public static async emit(app: App, req: Request, collectionName: string, obj?: any): Promise<any> {
         try {
@@ -35,6 +38,8 @@ class Log {
                     };
                 }
             }
+
+            debug(`Logging: ${collectionName} from ${req.user ? req.user[app.config.log.user.nameField] + '@' : ''}${getIp(req).clientIp} at ${req.url}:${req.method}`);
 
             if (obj) {
                 log.content = this.removeInvalidKeys(obj);
