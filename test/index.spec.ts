@@ -62,10 +62,10 @@ describe('index.ts', (): void => {
                         nameField: 'identificacao'
                     }
                 }
-            },
-            connectionName: '',
-            db
+            }
         });
+
+        app.add('db', db);
 
         exp.use((req: Request, res: Response, next: NextFunction): void => {
             if (!req.headers.anonimous) {
@@ -184,10 +184,14 @@ describe('index.ts', (): void => {
 
         client.close();
 
-        await Log.emit({
-            ...app,
-            db
-        } as App, undefined, collectionName);
+        const app2: App = new App({
+            appInfo: app.info,
+            config: app.config
+        });
+
+        app2.add('db', db);
+
+        await Log.emit(app2, undefined, collectionName);
 
         expect(logMsg).to.have.property('message').which.contain('server is closed');
     });

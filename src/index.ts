@@ -10,7 +10,7 @@ const debug: appDebugger.IDebugger = appDebugger('module:log');
 class Log {
     public static async emit(app: App, req: Request, collectionName: string, obj?: any): Promise<any> {
         try {
-            const collection: Collection = app.db.collection(collectionName);
+            const collection: Collection = app.get('db').collection(collectionName);
 
             const getIp: (req: Request) => any = ipware().get_ip;
 
