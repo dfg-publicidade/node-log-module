@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const debug_1 = __importDefault(require("debug"));
 const ipware_1 = __importDefault(require("ipware"));
 /* Module */
-const debug = debug_1.default('module:log');
+const debug = (0, debug_1.default)('module:log');
 class Log {
     static async emit(app, req, collectionName, obj) {
         try {
             const collection = app.get('db').collection(collectionName);
-            const getIp = ipware_1.default().get_ip;
+            const getIp = (0, ipware_1.default)().get_ip;
             const log = {};
             log.app = app.info;
             if (req) {
