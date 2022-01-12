@@ -40,11 +40,7 @@ describe('index.ts', (): void => {
             throw new Error('MONGO_TEST_URL must be set.');
         }
 
-        client = await MongoClient.connect(process.env.MONGO_TEST_URL, {
-            poolSize: 1,
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        client = await MongoClient.connect(process.env.MONGO_TEST_URL);
 
         db = client.db();
 
@@ -82,7 +78,7 @@ describe('index.ts', (): void => {
         });
 
         exp.get('/', async (req: Request, res: Response): Promise<void> => {
-            Log.emit(app, req, collectionName, {
+            await Log.emit(app, req, collectionName, {
                 'teste': 1,
                 'teste.teste': 1,
                 'teste2': {}
@@ -151,7 +147,7 @@ describe('index.ts', (): void => {
     });
 
     it('3. emit', async (): Promise<void> => {
-        Log.emit(app, undefined, collectionName, {
+        await Log.emit(app, undefined, collectionName, {
             teste: 1
         });
 
@@ -164,7 +160,7 @@ describe('index.ts', (): void => {
     });
 
     it('4. emit', async (): Promise<void> => {
-        Log.emit(app, undefined, collectionName);
+        await Log.emit(app, undefined, collectionName);
 
         const log: any = await db.collection(collectionName).findOne({});
 
@@ -174,11 +170,7 @@ describe('index.ts', (): void => {
     });
 
     it('5. emit', async (): Promise<void> => {
-        const client: MongoClient = await MongoClient.connect(process.env.MONGO_TEST_URL, {
-            poolSize: 1,
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        const client: MongoClient = await MongoClient.connect(process.env.MONGO_TEST_URL);
 
         const db: Db = client.db();
 
@@ -193,6 +185,6 @@ describe('index.ts', (): void => {
 
         await Log.emit(app2, undefined, collectionName);
 
-        expect(logMsg).to.have.property('message').which.contain('server is closed');
+        expect(logMsg).to.have.property('message').which.contain('MongoClient must be connected to perform this operation');
     });
 });
